@@ -1,0 +1,185 @@
+.Navbar{
+    user-select: none;
+    padding: 10px 0;
+
+    h2{
+        font-size: var(--h1);
+        color: var(--colorWhite);
+        cursor: pointer;
+    }
+    .container{
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__link{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: var(--colorWhiteWeaser);
+        cursor: pointer;
+        transition: .3s all;
+
+        &:hover{
+            color: var(--colorWhite);
+            .img{
+                opacity: 1;
+            }
+        }
+        
+        .img{
+            width: 30px;
+            height: 25px;
+            background-size: 15px;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            transition: .3s all;
+            opacity: .6;
+        }
+        &.Navbar__address{
+            .img{
+                background-image: url(../../images/navbar/placeWhite.svg);
+            }
+        } 
+        &.Navbar__basket {
+            .img{
+                background-image: url(../../images/navbar/shop.svg);
+                background-size: 20px;
+            }
+        }
+        &.Navbar__profile {
+            .img{
+                background-image: url(../../images/navbar/human.svg);
+                background-size: 20px;
+            }
+        }
+    }
+    &__links{
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    &__burger{
+        min-width: 25px;
+    }
+
+    &__base{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    &__upline{
+        display: flex;
+        gap: 10px;
+    }
+    &__uplineElement{
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        color: var(--colorWhiteWeaser);
+        cursor: pointer;
+    }
+    &__currency{
+        .ImgCurrency{
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-image: url(../../images/navbar/rusCircle.svg);
+            background-size: 20px;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+        }
+        .NameCurrency{
+            height: fit-content;
+        }
+
+        transition: .3s all;
+        &:hover{
+            color: var(--colorWhite);
+        }
+    }
+    &__place{
+        .ImgPlace{
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-image: url(../../images/navbar/place.svg);
+            background-size: 16px;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            transition: .3s all;
+        }
+        .NamePlace{
+            height: fit-content;
+        }
+
+        transition: .3s all;
+        &:hover{
+            color: var(--colorWhite);
+            .ImgPlace{
+                background-image: url(../../images/navbar/placeWhite.svg);
+            }
+        }
+    }
+
+    &__search{
+        padding: 5px 5px 5px 35px;
+        outline: none;
+        border: none;
+        border-radius: 15px;
+        width: 100%;
+        height: 5vh;
+
+        &Box{
+            position: relative;
+            display: flex;
+            align-items: center;
+            
+            min-width: 150px;
+            width: 80%;
+            max-width: 700px;
+
+            label{
+                width: 0;
+                position: absolute;
+                left: 8px;
+                &::before{
+                    content: "";
+                    display: block;
+
+                    width: 20px;
+                    height: 20px;
+                    background-image: url(../../images/navbar/search-magnifier-outline-svgrepo-com.svg);
+                    background-size: 20px;
+                    background-position: 50% 50%;
+                    background-repeat: no-repeat;
+                    opacity: .5;
+                }
+            }
+        }
+    }
+    #searchProducts{
+        position: relative;
+        left: 0;
+
+
+    }
+}
+
+@media (max-width: 1000px) {
+    .Navbar{
+        &__upline{
+            display: none;
+        }
+        h2{
+            font-size: clamp(12px, 4cqw, 28px);
+        }
+        &__links{
+            display: none;
+        }
+    }
+}

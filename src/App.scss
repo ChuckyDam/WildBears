@@ -1,0 +1,29 @@
+#root{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    &.body--overflow{
+        max-height: 100vh;
+        height: 100%;
+        overflow: hidden;
+    }
+}
+.Main{
+    flex-grow: 1;
+    background-color: var(--colorWhite);
+    border-radius: 15px 15px 0 0;
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    &__container{
+        padding: 5px;
+    }
+}
+.Content{
+    flex-grow: 1;
+}
+.Footer{
+    flex-shrink: 0;
+}

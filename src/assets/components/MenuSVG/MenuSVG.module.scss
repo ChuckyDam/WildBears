@@ -1,0 +1,27 @@
+.MenuSVG{
+    width: 25px;
+    height: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+
+    .lines{
+        width: 100%;
+        border: 2px solid var(--colorWhite);
+        transition: all .3s;
+
+        &.line_close{
+            &_actve1{
+                transform: rotate(45deg) translateY(7px) translateX(5px);
+            }
+            &_actve2{
+                opacity: 0;
+            }
+            &_actve3{
+                transform: rotate(-45deg) translateY(-7px) translateX(5px);
+            }
+        }
+    }
+}
