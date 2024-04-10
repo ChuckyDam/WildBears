@@ -2,18 +2,21 @@
     display: none;
     opacity: 0;
     transition: .3s all;
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
 
-    max-height: 87.2vh; //ПИпец
+    // max-height: 87.2vh; //ПИпец
+    max-height: 100vh;
+    margin-top: 12.5vh;
     border-radius: 0 15px 0 0;
 
     background-color: var(--colorTransBlack);
 
     &__container{
+
         width: 180px;
         height: 100%;
         background-color: var(--colorWhite);
@@ -28,5 +31,11 @@
 
     &.active{
         display: block;
+    }
+}
+
+@media (max-width: 1000px) {
+    .ModalSideBar{
+        margin-top: 8vh;
     }
 }

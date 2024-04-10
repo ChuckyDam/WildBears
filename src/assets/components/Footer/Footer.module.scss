@@ -1,3 +1,52 @@
 .Footer{
-    background-color: var(--colorBrownD);
+    background-color: var(--colorBlack);
+
+    .container{
+        padding: 10px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    &__logo{
+        min-width: 300px;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    h3{
+        color: var(--colorWhite);
+    }
+    &__links{
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: auto;
+        gap: 100px;
+        ul{
+            max-width: 300px;
+            display: flex;
+            flex-direction: column;
+            list-style-type: none;
+            gap: 5px;
+            padding: 10px 0;
+            li a{
+                color: var(--colorWhiteWeaser);
+                text-decoration: none;
+                transition: .3s all;
+                cursor: pointer;
+                &:hover{
+                    color: var(--colorWhite);
+                }
+            }
+        }
+    }
+
+}
+
+@media (max-width: 1000px) {
+    .Footer{
+        
+        &__links{
+            display: none;
+        }
+    }
 }

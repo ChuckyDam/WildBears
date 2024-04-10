@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 type Props = {
   stateModal: [React.SetStateAction<Boolean>, React.Dispatch<React.SetStateAction<Boolean>>],
+  whatUser: any
 }
 
 const сurrencies = ["RUB", "USD", "KZT", "BYN", "CNY"] as const
@@ -13,7 +14,6 @@ type Currency = typeof сurrencies[number];
 
 interface linke {
   name: string;
-  src: string;
   link: string;
   class: string;
 }
@@ -28,24 +28,24 @@ interface linkes {
 
 const links:linkes = {
   "const": [
-    {name: "Адреса", src: "/src/assets/images/navbar/placeWhite.svg", link: "/addresses", class: styles.Navbar__address},
-    {name: "Корзина", src: "/src/assets/images/navbar/shop.svg", link: "/basket", class: styles.Navbar__basket},
+    {name: "Адреса", link: "/addresses", class: styles.Navbar__address},
+    {name: "Корзина", link: "/basket", class: styles.Navbar__basket},
   ],
   "unlog": [
-    {name: "Войти", src: "/src/assets/images/navbar/human.svg", link: "", class: styles.Navbar__login}
+    {name: "Войти", link: "/login", class: styles.Navbar__login}
   ],
   "admin": [
-    {name: "Панель", src: "null", link: "/adminPanel", class: styles.Navbar__panel},
+    {name: "Панель", link: "/adminPanel", class: styles.Navbar__panel},
   ],
   "user": [
-    {name: "Профиль", src: "/src/assets/images/navbar/human.svg", link: "/profile", class: styles.Navbar__profile}
+    {name: "Профиль", link: "/profile", class: styles.Navbar__profile}
   ],
   "trader": [
-    {name: "Товары", src: "/src/assets/images/navbar/human.svg", link: "/trader", class: styles.Navbar__trader},
+    {name: "Товары", link: "/trader", class: styles.Navbar__trader},
   ],
 }
 
-export default function Navbar({stateModal}: Props) {
+export default function Navbar({stateModal, whatUser}: Props) {
     
   const [effect, setEffect] = stateModal;
 
@@ -63,7 +63,7 @@ export default function Navbar({stateModal}: Props) {
           <div className={styles.Navbar__upline}>
 
             <div className={styles.Navbar__currency + " " + styles.Navbar__uplineElement}>
-              <div className={styles.ImgCurrency}></div> <span className={styles.NameCurrency}>{currency}</span>
+              <div className={styles.ImgCurrency}></div> <span className={styles.NameCurrency} onClick={()=>{setCurrency("KZT")}}>{currency}</span>
             </div>
 
             <div className={styles.Navbar__place + " " + styles.Navbar__uplineElement}>
@@ -79,7 +79,7 @@ export default function Navbar({stateModal}: Props) {
 
             <form onSubmit={(e)=>{e.preventDefault()}} className={styles.Navbar__searchBox}>
               <input value={valueSearch} onChange={(e)=>{setValueSearch(e.target.value)}} id={styles.searchProducts} className={styles.Navbar__search} type="search" placeholder="Я ищу..." onKeyDown={(e)=>{
-                if(e.keyCode === 13) nav(`/${"null"}/${valueSearch}`)
+                if(e.keyCode === 13) nav(`/search/${"null"}/${valueSearch}`)
               }}/>
               <label htmlFor={styles.searchProducts}></label>
             </form>
@@ -89,58 +89,58 @@ export default function Navbar({stateModal}: Props) {
               links["const"].map((el, id)=>{
                 return (
                   <div key={id} className={styles.Navbar__link + " " + el.class} onClick={()=>{nav(el.link)}}>
-                    <div className={styles.img} style={{backgroundImage: `url(${el.src})`}}></div>
+                    <div className={styles.img}></div>
                     <h4>{el.name}</h4>
                   </div>
                 )
               })
             }
             {
+              whatUser.user ?
               links["user"].map((el, id)=>{
                 return (
                   <div key={id} className={styles.Navbar__link + " " + el.class} onClick={()=>{nav(el.link)}}>
-                    <div className={styles.img} style={{backgroundImage: `url(${el.src})`}}></div>
+                    <div className={styles.img}></div>
+                    <h4>{el.name}</h4>
+                  </div>
+                )
+              })
+              :
+              links["unlog"].map((el, id)=>{
+                return (
+                  <div key={id} className={styles.Navbar__link + " " + el.class} onClick={()=>{nav(el.link)}}>
+                    <div className={styles.img}></div>
                     <h4>{el.name}</h4>
                   </div>
                 )
               })
             }
             {
+              whatUser.user && whatUser.admin ? 
               links["admin"].map((el, id)=>{
                 return (
                   <div key={id} className={styles.Navbar__link + " " + el.class} onClick={()=>{nav(el.link)}}>
-                    <div className={styles.img} style={{backgroundImage: `url(${el.src})`}}></div>
+                    <div className={styles.img}></div>
                     <h4>{el.name}</h4>
                   </div>
                 )
               })
+              : ""
             }
             {
+              whatUser.user && whatUser.trader ?
               links["trader"].map((el, id)=>{
                 return (
                   <div key={id} className={styles.Navbar__link + " " + el.class} onClick={()=>{nav(el.link)}}>
-                    <div className={styles.img} style={{backgroundImage: `url(${el.src})`}}></div>
+                    <div className={styles.img}></div>
                     <h4>{el.name}</h4>
                   </div>
                 )
               })
+              : ""
             }
 
             </div>
-            {/* <div className={styles.Navbar__links}>
-              <div className={styles.Navbar__link + " " + styles.Navbar__address}>
-                <div className={styles.img}></div>
-                <h4>Адреса</h4>
-              </div>
-              <div className={styles.Navbar__link + " " + styles.Navbar__basket} onClick={()=>{nav("/basket")}}>
-                <div className={styles.img}></div>
-                <h4>Корзина</h4>
-              </div>
-              <div className={styles.Navbar__link + " " + styles.Navbar__profile} onClick={()=>{nav("/profile")}}>
-                <div className={styles.img}></div>
-                <h4>Профиль</h4>
-              </div>
-            </div> */}
           </div>
         </div>
     </nav>

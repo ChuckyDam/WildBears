@@ -7,7 +7,19 @@
         max-height: 100vh;
         height: 100%;
         overflow: hidden;
+        .Main{
+            padding-right: 17px;
+        }
+        .Header{
+            padding-right: 17px;
+        }
     }
+}
+.Header{
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: var(--linear);
 }
 .Main{
     flex-grow: 1;
@@ -23,6 +35,10 @@
 }
 .Content{
     flex-grow: 1;
+    .container{
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
 }
 .Footer{
     flex-shrink: 0;

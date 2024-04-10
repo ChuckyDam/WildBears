@@ -20,6 +20,7 @@ export default function ModalSideBar({children, className, stateModal}: Props) {
     if (className) classes.push(className);
 
     const [effect, setEffect] = stateModal;
+    
     const [boxClasses, setBoxClasses] = useState<Array<string>>([styles.ModalSideBar]);
 
     const setClass = function(item:string){

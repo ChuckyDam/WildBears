@@ -1,0 +1,12 @@
+.Alert{
+    position: absolute;
+    right: 0;
+    z-index: 10;
+    width: 200px;
+    height: 200px;
+    background-color: black;
+
+    &__progress{
+        transition: all .1s;
+    }
+}

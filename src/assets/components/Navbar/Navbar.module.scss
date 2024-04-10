@@ -37,27 +37,36 @@
             transition: .3s all;
             opacity: .6;
         }
-        &.Navbar__address{
-            .img{
-                background-image: url(../../images/navbar/placeWhite.svg);
-            }
-        } 
-        &.Navbar__basket {
-            .img{
-                background-image: url(../../images/navbar/shop.svg);
-                background-size: 20px;
-            }
+        &.Navbar__address .img{
+            background-image: url(../../images/navbar/placeWhite.svg);
         }
-        &.Navbar__profile {
-            .img{
-                background-image: url(../../images/navbar/human.svg);
-                background-size: 20px;
-            }
+        &.Navbar__trader .img{
+            background-image: url(../../images/navbar/trader.svg);
+            background-size: 20px;
+        } 
+        &.Navbar__panel .img{
+            background-image: url(../../images/navbar/panel.svg);
+            background-size: 30px;
+        } 
+        &.Navbar__basket .img{
+            background-image: url(../../images/navbar/shop.svg);
+            background-size: 20px;
+        }
+        &.Navbar__profile .img{
+            background-image: url(../../images/navbar/human.svg);
+            background-size: 20px;
+        }
+        &.Navbar__login .img{
+            background-image: url(../../images/navbar/human.svg);
+            background-size: 20px;
         }
     }
     &__links{
+        min-width: 300px;
+        max-width: 400px;
         display: flex;
         align-items: center;
+        justify-content: center;
         gap: 20px;
     }
 
@@ -107,11 +116,12 @@
             width: 30px;
             height: 30px;
             border-radius: 50%;
-            background-image: url(../../images/navbar/place.svg);
+            background-image: url(../../images/navbar/placeWhite.svg);
             background-size: 16px;
             background-position: 50% 50%;
             background-repeat: no-repeat;
             transition: .3s all;
+            opacity: .6;
         }
         .NamePlace{
             height: fit-content;
@@ -121,7 +131,7 @@
         &:hover{
             color: var(--colorWhite);
             .ImgPlace{
-                background-image: url(../../images/navbar/placeWhite.svg);
+                opacity: 1;
             }
         }
     }
