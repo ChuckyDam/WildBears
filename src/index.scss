@@ -8,6 +8,11 @@
   --colorBlack: #242424;
   --colorTransBlack: #24242480;
   --colorWhiteWeaser: #fffafab3;
+  --colorRed: rgb(223, 0, 0);
+
+  --colorlightGray: rgb(243, 243, 243);
+  --colorGray: rgb(235, 235, 235);
+  --colorWhiteLight: rgb(245, 245, 245);
   
   --linear: linear-gradient(135deg,  #c7620f 36%,#cac10e 100%);
   --linear2: linear-gradient(90deg,  #c7620f 36%,#cac10e 100%);
@@ -25,6 +30,7 @@
 
 body{
   background: var(--linear2);
+  overflow-x: hidden;
 }
 
 .container{

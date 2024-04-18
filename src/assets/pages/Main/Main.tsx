@@ -1,10 +1,12 @@
 import { useNavigate, useParams } from "react-router-dom";
 import "./Main.scss";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useContext, useEffect, useState } from "react";
 
 import test1 from "../../images/test/newTest2.webp"
 import test2 from "../../images/test/newTest3.webp"
+
+import context from "../../contexts/ContextsMoney";
+import Queries from "../../js/Queries";
 
 type Props = {}
 
@@ -16,14 +18,6 @@ interface Product {
   preview_img: string,
   discount: number,
   product_id: number
-}
-
-async function getProducts(limit:number, search:string|null, type:string|null){
-  if (!search) search = null
-  if (!type) type = null
-  let query = await axios.get(`http://mycoursework/products/${search}/${type}/${limit}`);
-  let query2 = await axios.get(`http://mycoursework/products/${search}/${type}`);
-  return [query.data, query2.data['count']];
 }
 
 const limit = 15;
@@ -43,6 +37,10 @@ export default function Main({}: Props) {
   const [slideCount, setSlideCount] = useState<number>(0)
 
   useEffect(()=>{
+    setCurrentPage(1);
+  }, [totalPage])
+
+  useEffect(()=>{
     document.addEventListener("scroll", scrollHandler);
     return ()=>{
       document.removeEventListener("scroll", scrollHandler);
@@ -50,14 +48,27 @@ export default function Main({}: Props) {
   }, [products])
 
   useEffect(()=>{
-    getProducts(limit*currentPage,filter.search,filter.type).then((data)=>{
-      setProducts(data[0]);
-      setTotalPage(Math.ceil(data[1]/limit));
-    })
+    if (params.search && params.type){
+      if(filter.type !== "null" || filter.search !== "null"){
+        Queries.getProducts(limit*currentPage,filter.search,filter.type).then((data)=>{
+          setProducts(data[0]);
+          setTotalPage(Math.ceil(data[1]/limit));
+        })
+      }
+    }else{
+      Queries.getProducts(limit*currentPage,filter.search,filter.type).then((data)=>{
+        setProducts(data[0]);
+        setTotalPage(Math.ceil(data[1]/limit));
+      })
+    }
+    // Queries.getProducts(limit*currentPage,filter.search,filter.type).then((data)=>{
+    //   setProducts(data[0]);
+    //   setTotalPage(Math.ceil(data[1]/limit));
+    // })
   }, [filter, currentPage]);
 
   useEffect(()=>{
-    setCurrentPage(1);
+    
     if(params.search && params.search !== "null"){
       let fil = {...filter}
       fil.search = params.search
@@ -71,6 +82,11 @@ export default function Main({}: Props) {
     if(!(params.search || params.type)){
       setFilter({type: "null", search: "null"});
     }
+    if(params.type === "null" && params.search === "null"){
+      let fil = {...filter}
+      fil.search = ""
+      setFilter(fil);
+    }
   }, [params])
 
   const scrollHandler = (e:any)=>{
@@ -80,8 +96,10 @@ export default function Main({}: Props) {
     }
   }
 
+  const obj = useContext<any>(context);
+  const [money, currencies] = [obj.currency, obj.currencies];
+
   return (
-    <>
       <div className="container">
         <div className="Main__newAlerts">
           <div className="Main__newAlertsBlocks" style={{marginLeft: `${slideCount}vw`, width: `${2 * 90}vw`}}>
@@ -102,24 +120,22 @@ export default function Main({}: Props) {
             products.length === 0? <div>Ничего не найдено</div>
             :
             products.map((el)=>{
-
+              let curr = currencies.current[money];
               let price;
               if (el.discount){
                 price = (
                   <div className="Main__productPrice">
-                    <p>{el.price_product - el.price_product * (el.discount/100)} ₽</p>
-                    <p className="Main__productPriceOld">{el.price_product}</p>
+                    <p>{((el.price_product - el.price_product * (el.discount/100)) * curr.rubls).toLocaleString('ru-RU')} {curr.sign}</p>
+                    <p className="Main__productPriceOld">{(el.price_product * curr.rubls).toLocaleString('ru-RU')} {curr.sign}</p>
                   </div>
                 )
               }else{
                 price = (
                   <div className="Main__productPrice">
-                    <p>{el.price_product} ₽</p>
+                    <p>{(el.price_product * curr.rubls).toLocaleString('ru-RU')} {curr.sign}</p>
                   </div>
                 )
               }
-
-              console.log(el.full_name.length)
 
               let full_name = "/ " + (el.full_name.length > 7? el.full_name.slice(0,7) + "..." : el.full_name);
               let name_product = el.name_product;
@@ -141,13 +157,20 @@ export default function Main({}: Props) {
                     <p className="Main__productTrader">{name_product} <span className="Main__productName">{full_name}</span></p>
                     <p className="Main__category">{el.name_category}</p>
                   </div>
-                  <button> Купить </button>
+                  <button className="Main__productButton" onClick={(e:any)=>{
+                    let bask = localStorage.getItem("basket")? localStorage.getItem("basket")?.split(",") : [];
+                    // @ts-ignore: error message
+                    let baskets = new Set([...bask, el.product_id]);
+                    localStorage.setItem("basket", [...baskets].join(","));
+
+                    e.target.classList.add("active");
+                    e.target.textContent = "В корзине";
+                  }}> Купить </button>
                 </div>
               )
             })
           }
         </div>
       </div>
-    </>
   )
 }

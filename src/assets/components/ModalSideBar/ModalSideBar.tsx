@@ -32,13 +32,13 @@ export default function ModalSideBar({children, className, stateModal}: Props) {
     useUpdateEffect(()=>{
       if(!effect) {
         setClass(styles.active)
-        document.querySelector("#root")?.classList.add("body--overflow");
+        document.querySelector("body")?.classList.add("body--overflow");
         sleep(100).then(()=>{
           ModalBoxSrc.current.style.opacity = "1";
           ModalBoxSrc.current.getElementsByClassName(styles.ModalSideBar__container)[0].classList.add(styles.container_active)
         })
       }else{
-        document.querySelector("#root")?.classList.remove("body--overflow");
+        document.querySelector("body")?.classList.remove("body--overflow");
         ModalBoxSrc.current.style.opacity = "0";
         ModalBoxSrc.current.getElementsByClassName(styles.ModalSideBar__container)[0].classList.remove(styles.container_active)
         sleep(300).then(()=>{setBoxClasses([styles.ModalSideBar])});

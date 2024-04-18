@@ -7,6 +7,10 @@ type Props = {
     text: any
 }
 
+function sleep(millis: number) {
+    return new Promise(resolve => setTimeout(resolve, millis));
+}
+
 const timeLong = 500;
 
 export default function Alert({stateModal, text}: Props) {
@@ -19,9 +23,13 @@ export default function Alert({stateModal, text}: Props) {
     useUpdateEffect(()=>{
         if(state){
             block.current.style.display = "flex";
+            sleep(300)
+            .then(async()=>{
+            block.current.classList.add(styles.Alert_active);
+            await sleep(500)
             let time = 0;
             let timeEnd = time + timeLong;
-            new Promise<void>((res)=>{
+            new Promise<void>(async(res)=>{
                 
                 block.current.onmouseover = ()=>{stop.current = true};
                 block.current.onmouseout = ()=>{stop.current = false};
@@ -34,9 +42,19 @@ export default function Alert({stateModal, text}: Props) {
                 }, 1)
             })
             .then(()=>{
-                setState(false);
-                progress.current.value = 0;
+                block.current.classList.remove(styles.Alert_active);
+                block.current.classList.add(styles.Alert_close);
+                sleep(700)
+                .then(()=>{
+                    block.current.classList.remove(styles.Alert_close);
+                    setState(false);
+                    progress.current.value = 0;
+                })
             })
+
+            })
+
+
 
         }else{
             block.current.style.display = "none";
@@ -46,7 +64,7 @@ export default function Alert({stateModal, text}: Props) {
   return (
     <div ref={block} className={styles.Alert}>
         <progress className={styles.Alert__progress} max="100" value={0} ref={progress}></progress>
-        <p style={{color: "white"}}>{text}</p>
+        <div className={styles.Alert__container}>{text}</div>
     </div>
   )
 }

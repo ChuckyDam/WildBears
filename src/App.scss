@@ -1,18 +1,19 @@
+
+
 #root{
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-
-    &.body--overflow{
-        max-height: 100vh;
-        height: 100%;
-        overflow: hidden;
-        .Main{
-            padding-right: 17px;
-        }
-        .Header{
-            padding-right: 17px;
-        }
+}
+.body--overflow{
+    // max-height: 100vh;
+    // height: 100%;
+    overflow: hidden;
+    .Main{
+        padding-right: 17px;
+    }
+    .Header{
+        padding-right: 17px;
     }
 }
 .Header{

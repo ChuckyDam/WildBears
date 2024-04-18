@@ -3,6 +3,7 @@ import Main from "../pages/Main/Main"
 import Profile from "../pages/Profile/Profile"
 import Basket from "../pages/Basket/Basket"
 import Login from "../pages/Login/Login"
+import Address from "../pages/Address/Address"
 
 type Props = {}
 
@@ -18,6 +19,7 @@ export default function AppRouter({}: Props) {
         <Route path="/profile" element={<Profile/>}/>
         <Route path="/basket" element={<Basket/>}/>
         <Route path="/login" element={<Login/>}/>
+        <Route path="/address" element={<Address/>}/>
 
     </Routes>
   )

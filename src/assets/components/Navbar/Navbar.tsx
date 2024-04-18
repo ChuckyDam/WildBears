@@ -1,16 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import MenuSVG from "../MenuSVG/MenuSVG"
 import styles from "./Navbar.module.scss"
 import { useNavigate } from "react-router-dom";
 
+import context from "../../contexts/ContextsMoney";
+import SelectCurrency from "../SelectCurrency/SelectCurrency";
+
 type Props = {
-  stateModal: [React.SetStateAction<Boolean>, React.Dispatch<React.SetStateAction<Boolean>>],
-  whatUser: any
+  stateModal: [React.SetStateAction<Boolean>, React.Dispatch<React.SetStateAction<Boolean>>]
 }
-
-const сurrencies = ["RUB", "USD", "KZT", "BYN", "CNY"] as const
-
-type Currency = typeof сurrencies[number];
 
 interface linke {
   name: string;
@@ -45,11 +43,13 @@ const links:linkes = {
   ],
 }
 
-export default function Navbar({stateModal, whatUser}: Props) {
+export default function Navbar({stateModal}: Props) {
     
   const [effect, setEffect] = stateModal;
 
-  const [currency, setCurrency] = useState<Currency>("RUB");
+  const obj = useContext<any>(context);
+  const [address] = [obj.address];
+  const whatUser = obj.whatUser;
 
   const [valueSearch, setValueSearch] = useState<string>("");
 
@@ -62,12 +62,10 @@ export default function Navbar({stateModal, whatUser}: Props) {
         <div className={styles.container + " container"}>
           <div className={styles.Navbar__upline}>
 
-            <div className={styles.Navbar__currency + " " + styles.Navbar__uplineElement}>
-              <div className={styles.ImgCurrency}></div> <span className={styles.NameCurrency} onClick={()=>{setCurrency("KZT")}}>{currency}</span>
-            </div>
+            <SelectCurrency/>
 
-            <div className={styles.Navbar__place + " " + styles.Navbar__uplineElement}>
-              <div className={styles.ImgPlace}></div> <span className={styles.NamePlace}>Адресс не указан</span>
+            <div className={styles.Navbar__place + " " + styles.Navbar__uplineElement} onClick={()=>{nav("/address")}}>
+              <div className={styles.ImgPlace}></div> <span className={styles.NamePlace}>{address?address:"Адресс не указан"}</span>
             </div>
 
           </div>
@@ -79,7 +77,10 @@ export default function Navbar({stateModal, whatUser}: Props) {
 
             <form onSubmit={(e)=>{e.preventDefault()}} className={styles.Navbar__searchBox}>
               <input value={valueSearch} onChange={(e)=>{setValueSearch(e.target.value)}} id={styles.searchProducts} className={styles.Navbar__search} type="search" placeholder="Я ищу..." onKeyDown={(e)=>{
-                if(e.keyCode === 13) nav(`/search/${"null"}/${valueSearch}`)
+                if(e.keyCode === 13) {
+                  if (valueSearch === "") nav(`/search/${"null"}/${"null"}`)
+                  else nav(`/search/${"null"}/${valueSearch}`)
+                }
               }}/>
               <label htmlFor={styles.searchProducts}></label>
             </form>
