@@ -19,7 +19,7 @@ export default function SelectCurrency({}: Props) {
         <div className={styles.SelectCurrency__currency + " " + curSVG} onClick={()=>{setDisplay(!display)}}>
             <div className={styles.ImgCurrency}></div> <span className={styles.NameCurrency}>{currency}</span>
         </div>
-        <div className={styles.SelectCurrency__variants} style={{display: display? "block": "none"}}>
+        <div className={styles.SelectCurrency__variants} style={{display: display? "block": "none"}} onClick={()=>{setDisplay(false)}}>
             <div onClick={()=>{setCurrency("RUB"); setCurSVG(styles.SelectCurrency__currencyRUB)}} className={styles.SelectCurrency__currency + " " + styles.SelectCurrency__currencyRUB}><div className={styles.ImgCurrency}></div> <span className={styles.NameCurrency}>RUB</span></div>
             <div onClick={()=>{setCurrency("CNY"); setCurSVG(styles.SelectCurrency__currencyCNY)}} className={styles.SelectCurrency__currency + " " + styles.SelectCurrency__currencyCNY}><div className={styles.ImgCurrency}></div> <span className={styles.NameCurrency}>CNY</span></div>
         </div>

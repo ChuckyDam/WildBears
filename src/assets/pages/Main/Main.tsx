@@ -61,10 +61,6 @@ export default function Main({}: Props) {
         setTotalPage(Math.ceil(data[1]/limit));
       })
     }
-    // Queries.getProducts(limit*currentPage,filter.search,filter.type).then((data)=>{
-    //   setProducts(data[0]);
-    //   setTotalPage(Math.ceil(data[1]/limit));
-    // })
   }, [filter, currentPage]);
 
   useEffect(()=>{

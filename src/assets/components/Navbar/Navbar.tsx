@@ -26,7 +26,7 @@ interface linkes {
 
 const links:linkes = {
   "const": [
-    {name: "Адреса", link: "/addresses", class: styles.Navbar__address},
+    {name: "Адреса", link: "/address", class: styles.Navbar__address},
     {name: "Корзина", link: "/basket", class: styles.Navbar__basket},
   ],
   "unlog": [
@@ -48,8 +48,7 @@ export default function Navbar({stateModal}: Props) {
   const [effect, setEffect] = stateModal;
 
   const obj = useContext<any>(context);
-  const [address] = [obj.address];
-  const whatUser = obj.whatUser;
+  const [address, whatUser] = [obj.address, obj.whatUser];
 
   const [valueSearch, setValueSearch] = useState<string>("");
 

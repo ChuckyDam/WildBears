@@ -23,6 +23,17 @@ export async function checkToken(token:string){
   return query.data;
 }
 
+export async function getGoToken(token:string, url:string){
+  let query = await axios({
+    method: 'GET',
+    url: url,
+    headers: {
+      "Authorization": token
+    }
+  })
+  return query.data;
+}
+
 export async function getBasket(products:Array<string>){
   let query = await axios({
     method: 'POST',
@@ -38,4 +49,4 @@ export async function getBasket(products:Array<string>){
   return query.data;
 }
 
-export default {getProducts, query, checkToken, getBasket}
+export default {getProducts, query, checkToken, getBasket, getGoToken}

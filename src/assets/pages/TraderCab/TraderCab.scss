@@ -1,0 +1,88 @@
+.TraderCab{
+
+    h2{
+        margin: 20px 0;
+    }
+    &__myProducts{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 24px;
+    }
+    &__myProduct{
+        display: flex;
+        flex-direction: column;
+        width: 200px;
+
+        img{
+            height: 200px;
+            width: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+
+            transition: .3s all;
+        }
+        p{
+            text-align: center;
+            font-size: 14px;
+            max-height: 40px;
+        }
+
+        &Img{
+            position: relative;
+
+            &:hover{
+                img{
+                    filter: grayscale(.8);
+                }
+                .TraderCab__btn{
+                    opacity: .7;
+                    &Edit:hover{
+                        opacity: 1;
+                    }
+                    &Remove:hover{
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+    }
+    &__btn{
+        opacity: 0;
+        top: 10px;
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        border-radius: 10px;
+        cursor: pointer;
+        color: var(--colorGray);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        transition: .3s all;
+        &Edit{
+            left: 5px;
+            background-color: var(--colorOrange);
+        }
+        &Remove{
+            right: 5px;
+            background-color: var(--colorRed);
+        }
+    }
+    &__createProduct{
+        cursor: pointer;
+        padding: 5px 10px;
+        font-size: 16px;
+        border: 0;
+        border-radius: 8px;
+        background-color: var(--colorGreen);
+        color: var(--colorGray);
+
+        transition: .3s all;
+        &:hover{
+            background-color: var(--colorGreen2);
+        }
+    }
+}
