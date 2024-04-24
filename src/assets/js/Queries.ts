@@ -12,6 +12,10 @@ export const query = async function(ref: string, obj:any){
   return await axios.post(ref, obj);
 }
 
+export const getQuery = async function(url:string) {
+  return await axios.get(url);
+}
+
 export async function checkToken(token:string){
   let query = await axios({
     method: 'GET',
@@ -49,4 +53,16 @@ export async function getBasket(products:Array<string>){
   return query.data;
 }
 
-export default {getProducts, query, checkToken, getBasket, getGoToken}
+export async function formSet(url:string, forFormsObj:any, token:string) {
+  return await axios({
+    method: 'POST',
+    url: url,
+    headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          "Authorization": token
+    },
+    data: forFormsObj,
+  })
+}
+
+export default {getProducts, query, checkToken, getBasket, getGoToken, formSet, getQuery}

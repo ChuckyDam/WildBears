@@ -1,0 +1,105 @@
+.CreateProduct{
+    .container{
+        display: flex;
+        flex-direction: column;
+    }
+    &__form{
+        margin: 0 auto;
+        max-width: 700px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    input, textarea, select{
+        padding: 5px;
+        border-radius: 5px;
+        border: 0;
+        outline: 0;
+        border-left: 5px solid var(--colorOrange);
+        border-right: 5px solid var(--colorOrange);
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            /* display: none; <- Crashes Chrome on hover */
+            -webkit-appearance: none;
+            margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+        }
+    }
+    textarea{
+        max-width: 400px;
+        width: 100%;
+    }
+    img{
+        max-width: 200px;
+    }
+
+    input[name="name_product"]{
+        font-size: 20px;
+    }
+    img[alt="preview"]{
+        width: 150px;
+        height: 150px;
+        border-radius: 10px;
+        object-fit: cover;
+    }
+    img[alt="photo"]{
+        height: 100px;
+        border-radius: 10px;
+        object-fit: cover;
+    }
+
+    &__photos{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    &__photo{
+        position: relative;
+        p{
+            text-align: center;
+            width: 25px;
+            height: 25px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            color: var(--colorWhite);
+            cursor: pointer;
+            background-color: var(--colorRed);
+            padding: 5px;
+            border-radius: 5px;
+
+            transition: .3s all;
+            &:hover{
+                color: var(--colorRed);
+                background-color: var(--colorGray);
+            }
+        }
+    }
+    &__flexInput{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+
+        select, input{
+            width: 180px;
+        }
+    }
+    &__btnSubmit{
+        cursor: pointer;
+        outline: none;
+        border: 0;
+        padding: 3px 5px;
+        border-radius: 5px;
+        border: 3px solid var(--colorOrange);
+        background-color: var(--colorWhite);
+
+        transition: .3s all;
+        &:hover{
+            background-color: var(--colorOrange);
+            color: var(--colorWhite);
+        }
+    }
+}

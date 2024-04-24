@@ -145,7 +145,7 @@ export default function Main({}: Props) {
 
               return (
                 <div key={el.product_id} className="Main__product" onClick={()=>{
-                  console.log(el.product_id)
+                  nav(`/product/${el.product_id}`);
                 }}>
                   <div className="Main__productInfo">
                     <img src={"http://mycoursework/project/webroot/images/previewProducts/"+el.preview_img} alt="ris"/>
@@ -161,6 +161,8 @@ export default function Main({}: Props) {
 
                     e.target.classList.add("active");
                     e.target.textContent = "В корзине";
+
+                    e.stopPropagation();
                   }}> Купить </button>
                 </div>
               )

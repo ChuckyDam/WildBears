@@ -10,6 +10,9 @@ import { useContext } from "react"
 import AdminPanel from "../pages/AdminPanel/AdminPanel"
 import TraderCab from "../pages/TraderCab/TraderCab"
 import CreateProduct from "../pages/CreateProduct/CreateProduct"
+import Product from "../pages/Product/Product"
+import PolitPage from "../pages/PolitPage/PolitPage"
+import HelperPage from "../pages/HelperPage/HelperPage"
 
 type Props = {}
 
@@ -63,6 +66,9 @@ export default function AppRouter({}: Props) {
         <Route path="/" element={<Main/>}/>
         <Route path="/basket" element={<Basket/>}/>
         <Route path="/address" element={<Address/>}/>
+        <Route path="/politPage" element={<PolitPage/>}/>
+        <Route path="/product/:product_id" element={<Product/>}/>
+        <Route path="/helper/order" element={<HelperPage/>}/>
 
         {user(whatUser.user)}
         {admin(whatUser.admin)}

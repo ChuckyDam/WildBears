@@ -4,7 +4,7 @@ import AppRouter from './assets/components/AppRouter'
 import Footer from './assets/components/Footer/Footer'
 import ModalSideBar from './assets/components/ModalSideBar/ModalSideBar'
 import Navbar from './assets/components/Navbar/Navbar'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, useNavigate } from 'react-router-dom'
 import Cookie from './assets/js/Cookie';
 import Alert from './assets/components/Alert/Alert'
 
@@ -59,6 +59,16 @@ function App() {
 
   const [address, setAddress] = useState<string>("");
 
+  const [types, setTypes] = useState<Array<string>>([]);
+
+  useEffect(()=>{
+    Queries.getGoToken("null", "http://mycoursework/category")
+    .then(data =>{
+      let categories = data.map((el:any)=>el.name_category)
+      setTypes(categories);
+    })
+  }, []);
+
   useEffect(()=>{
     let token = Cookie.getCookie("token");
     if (!token) return;
@@ -78,7 +88,7 @@ function App() {
   }, []);
 
   return (
-    <MoneyProvider value={{currency, setCurrency, currencies, error, setError, whatUser, setWhatUser, address, setAddress}}>
+    <MoneyProvider value={{currency, setCurrency, currencies, error, setError, whatUser, setWhatUser, address, setAddress, types}}>
       <BrowserRouter>
         <Navbar stateModal={[modal, setModal]}/>
         <main className='Main'>
@@ -87,10 +97,8 @@ function App() {
           </div>
           <Footer/>
         </main>
-        <ModalSideBar stateModal={[modal, setModal]}>
-            <div className='Main__container'>
-              <button onClick={()=>{setError({status: true, textError: "Работаем", isBad: true})}}>Ok</button>
-            </div>
+        <ModalSideBar stateModal={[modal, setModal]} types={types}>
+          {/* <button onClick={()=>{setError({status: true, textError: "Работаем", isBad: true})}}>Ok</button> */}
         </ModalSideBar>
         <Alert stateModal={[error.status, (value)=>{
             let newError = {...error};

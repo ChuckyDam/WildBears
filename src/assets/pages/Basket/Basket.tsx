@@ -4,6 +4,7 @@ import Queries from "../../js/Queries";
 import context from "../../contexts/ContextsMoney";
 import { useUpdateEffect } from "../../hooks/useUpdateEffect";
 import Cookie from "../../js/Cookie";
+import { useNavigate } from "react-router-dom";
 
 type Props = {}
 
@@ -26,7 +27,9 @@ export default function Basket({}: Props) {
   const [count, setCount] = useState<number>(0);
 
   const obj = useContext<any>(context);
-  const [money, currencies, address, setAddress] = [obj.currency, obj.currencies, obj.address, obj.setAddress];
+  const [money, currencies, address, setError] = [obj.currency, obj.currencies, obj.address, obj.setError];
+
+  const nav = useNavigate();
 
   useEffect(()=>{
     const poducts = localStorage.getItem("basket")? localStorage.getItem("basket")?.split(",") : [];
@@ -157,20 +160,40 @@ export default function Basket({}: Props) {
                   <h3>Итого: {(summ * currencies.current[money].rubls).toLocaleString('ru-RU')} {currencies.current[money].sign}</h3>
                   <button className="Basket__confirmBtn" onClick={()=>{
                     let token = Cookie.getCookie("token");
-                    if (token){
-                      let objs = products.map((el)=>{
-                        let price = el.quantity? el.price_product - el.discount/100 * el.price_product: el.price_product;
-                        return {
-                          "token": Cookie.getCookie("token"),
-                          "product_id": el.product_id,
-                          "price": price,
-                          "quantity": el.quantity_now,
-                        }
+                    if (!token){
+                      setError({
+                        "status": true,
+                        "textError": "Вы не авторизованы",
+                        "isBad": true
                       });
-                      console.log(objs)
-                    }else{
-                      console.log("Вы не авторизованы")
+                      return;
                     }
+                    if (address.length < 1){
+                      setError({
+                        "status": true,
+                        "textError": "Вы не выбрали адресс",
+                        "isBad": true
+                      });
+                      return;
+                    }
+                    let objs = products.map((el)=>{
+                      let price = el.quantity? el.price_product - el.discount/100 * el.price_product: el.price_product;
+                      return {
+                        "token": token,
+                        "product_id": el.product_id,
+                        "price": price,
+                        "quantity": el.quantity_now,
+                        "address": address
+                      }
+                    });
+                    Queries.query("http://mycoursework/query/create", objs)
+                    .then(() => {
+                      localStorage.setItem("basket", "");
+                      nav("/profile");
+                    })
+                    .catch(data=>{
+                      console.log(data);
+                    })
                   }}>Оформить заказ</button>
                 </div>
 

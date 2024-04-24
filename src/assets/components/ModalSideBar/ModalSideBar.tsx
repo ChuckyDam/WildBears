@@ -1,18 +1,22 @@
 import { useRef, useState } from "react";
 import styles from "./ModalSideBar.module.scss"
 import { useUpdateEffect } from "../../hooks/useUpdateEffect";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
     children?: React.ReactElement<any, any>|string,
     className?:string,
     stateModal: [React.SetStateAction<Boolean>, React.Dispatch<React.SetStateAction<Boolean>>],
+    types: Array<string>
 }
 
 function sleep(millis:number) {
   return new Promise(resolve => setTimeout(resolve, millis));
 }
 
-export default function ModalSideBar({children, className, stateModal}: Props) {
+export default function ModalSideBar({children, className, stateModal, types}: Props) {
+
+    const nav = useNavigate();
 
     const ModalBoxSrc = useRef<HTMLDivElement>(document.createElement("div"));
 
@@ -50,7 +54,16 @@ export default function ModalSideBar({children, className, stateModal}: Props) {
         <div className={classes.join(" ")} onClick={(e)=>{
           e.stopPropagation();
         }}>
-          {children}
+          <div className='Model__container'>
+            {children}
+            {
+              types.map((el, id)=>{
+                return (
+                  <p className='Model__categoryBtn' key={id} onClick={()=>{nav(`/search/${el}/null`)}}>{el}</p>
+                )
+              })
+            }
+          </div>
         </div>
     </div>
   )

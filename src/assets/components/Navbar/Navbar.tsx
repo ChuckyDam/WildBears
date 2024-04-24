@@ -81,7 +81,10 @@ export default function Navbar({stateModal}: Props) {
                   else nav(`/search/${"null"}/${valueSearch}`)
                 }
               }}/>
-              <label htmlFor={styles.searchProducts}></label>
+              <label htmlFor={styles.searchProducts} style={{cursor: "pointer"}} onClick={()=>{
+                  if (valueSearch === "") nav(`/search/${"null"}/${"null"}`)
+                  else nav(`/search/${"null"}/${valueSearch}`)
+              }}></label>
             </form>
 
             <div className={styles.Navbar__links}>

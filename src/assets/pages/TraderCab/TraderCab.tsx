@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import Queries from "../../js/Queries"
 import "./TraderCab.scss"
 import Cookie from "../../js/Cookie"
 import { useNavigate } from "react-router-dom"
+import context from "../../contexts/ContextsMoney";
 
 interface Product {
   name_product: string,
@@ -22,6 +23,9 @@ export default function TraderCab({}: Props) {
 
   const [products, setProducts] = useState<Array<Product>>([])
 
+  const obj = useContext<any>(context);
+  const [setError] = [obj.setError];
+
   useEffect(()=>{
     let token = Cookie.getCookie("token");
     if(!token) window.location.href = "/";
@@ -29,15 +33,20 @@ export default function TraderCab({}: Props) {
     .then((data)=>{
       setProducts(data);
     })
+    .catch((e)=>{
+      console.log(e);
+    })
   }, [])
 
   return (
     <div className="TraderCab">
       <div className="container">
+        <h2>Кабинет управления товарами продавца</h2>
         <button className="TraderCab__createProduct" onClick={()=>{nav("/createProduct")}}>Создать товар | +</button>
-        <h2>Ваши товары:</h2>
         {
           products.length > 0?
+          <>
+          <h2>Ваши товары:</h2>
           <div className="TraderCab__myProducts">
           {
             products.map((el)=>{
@@ -47,10 +56,21 @@ export default function TraderCab({}: Props) {
                   <div className="TraderCab__myProductImg">
                     <img src={"http://mycoursework/project/webroot/images/previewProducts/"+el.preview_img} alt="ris"/>
                     <div className="TraderCab__btnRemove TraderCab__btn" onClick={()=>{
-                      Queries.query("http://mycoursework/products/removeProduct", {"product_id": el.product_id});
+                      Queries.query("http://mycoursework/products/removeProduct", {"product_id": el.product_id})
+                      .then(()=>{
+                        let prds = [...products].filter((obj)=>obj.product_id != el.product_id);
+                        setProducts(prds);
+                      })
+                      .catch((err)=>{
+                        console.log(err);
+                        setError({
+                          "status": true,
+                          "textError": "Товар в заказе",
+                          "isBad": true
+                        });
+                      })
 
-                      let prds = [...products].filter((obj)=>obj.product_id != el.product_id);
-                      setProducts(prds);
+
                     }}>Del</div>
                     <div className="TraderCab__btnEdit TraderCab__btn" onClick={()=>{
                       
@@ -62,6 +82,7 @@ export default function TraderCab({}: Props) {
             })
           }
           </div>
+          </>
           :""
         }
 

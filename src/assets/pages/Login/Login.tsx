@@ -99,7 +99,16 @@ export default function Login({}: Props) {
                   setError({
                     "status": true,
                     "textError": <p>{data.data.message}, <span style={{cursor: "pointer", color: "greenyellow"}} onClick={()=>{setBox(true);}}>Войти</span></p>,
-                    "isBad": true
+                    "isBad": false
+                  });
+                  setRegistInfo({
+                    "username": "",
+                    "email": "",
+                    "phone": "",
+                    "full_name": "",
+                    "password": "",
+                    "password_repeat": "",
+                    "image": null
                   });
                 })
                 .catch((data)=>{
@@ -147,7 +156,7 @@ export default function Login({}: Props) {
                     }}/>
                   </div>
                 </div>
-                <input id="Avatar" type="file" accept="image/png, image/jpeg, image/webp" placeholder="Повторите пароль" onChange={(e:any)=>{
+                <input id="Avatar" type="file" accept="image/png, image/jpeg, image/webp" onChange={(e:any)=>{
                   let fileReader = new FileReader();
                   fileReader.onload = ()=>{
                     imgChange.current.style.backgroundImage = `url(${fileReader.result})`;
@@ -163,7 +172,7 @@ export default function Login({}: Props) {
                 <label htmlFor="checkPolit" className="Login__checkPolit">
                   <p>
                     <span>Ознакомился с </span> 
-                    <Link to="/">политикой конфидициальности</Link>
+                    <Link to="/politPage">политикой конфидициальности</Link>
                   </p>
                 </label>
               </form>

@@ -1,0 +1,70 @@
+.AdminPanel{
+
+
+    &__users{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    &__user{
+        padding: 10px;
+        border-radius: 10px;
+        border: 3px solid var(--colorBrownD);
+        width: fit-content;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        img{
+            align-self: center;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 1px solid var(--colorBrownD);
+            object-fit: cover;
+        }
+        .username{
+            font-size: 20px;
+            font-weight: 800;
+        }
+        .btns {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            .Admin{
+                color: var(--colorRed);
+            }
+            .User{
+                color: var(--colorBrownD);
+            }
+            button{
+                border: 0;
+                width: fit-content;
+                padding: 5px 10px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+        }
+    }
+    &__ban{
+        background-color: var(--colorRed);
+        color: var(--colorWhite);
+        outline: 1px solid var(--colorRed);
+
+        transition: .3s all;
+        &:hover{
+            background-color: var(--colorWhite);
+            color: var(--colorRed);
+        }
+    }
+    &__setTrader{
+        background-color: var(--colorOrange);
+        color: var(--colorWhite);
+        outline: 1px solid var(--colorOrange);
+
+        transition: .3s all;
+        &:hover{
+            background-color: var(--colorWhite);
+            color: var(--colorWood);
+        }
+    }
+}
