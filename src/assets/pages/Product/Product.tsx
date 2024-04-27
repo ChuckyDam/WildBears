@@ -33,13 +33,13 @@ export default function Product({}: Props) {
     const [product, setProduct] = useState<Product|null>(null);
     
     const obj = useContext<any>(context);
-    const [money, currencies, address, setError] = [obj.currency, obj.currencies, obj.address, obj.setError];
+    const [money, currencies] = [obj.currency, obj.currencies];
+    // const [address, setError] = [obj.address, obj.setError];
     let curr = currencies.current[money];
 
     useEffect(()=>{
       Queries.getQuery(`http://mycoursework/product/${params.product_id}`)
       .then(data=>{
-        console.log(data.data);
         setProduct(data.data);
       })
     }, [])

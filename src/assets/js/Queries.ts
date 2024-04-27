@@ -53,7 +53,7 @@ export async function getBasket(products:Array<string>){
   return query.data;
 }
 
-export async function formSet(url:string, forFormsObj:any, token:string) {
+export async function formSet(url:string, json:any, token:string) {
   return await axios({
     method: 'POST',
     url: url,
@@ -61,7 +61,7 @@ export async function formSet(url:string, forFormsObj:any, token:string) {
           "Content-type": "application/json; charset=UTF-8",
           "Authorization": token
     },
-    data: forFormsObj,
+    data: json,
   })
 }
 

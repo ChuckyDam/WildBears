@@ -97,7 +97,7 @@ export default function CreateProduct({}: Props) {
               return <div className='CreateProduct__photo' key={id}>
                 <img src={url} alt="photo" />
                 <p onClick={()=>{
-                  let arr = photos.filter((el, ind)=>ind !== id)
+                  let arr = photos.filter((_, ind)=>ind !== id)
                   setPhotos(arr);
                 }}>X</p>
               </div>

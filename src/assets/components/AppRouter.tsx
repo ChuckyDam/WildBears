@@ -13,6 +13,7 @@ import CreateProduct from "../pages/CreateProduct/CreateProduct"
 import Product from "../pages/Product/Product"
 import PolitPage from "../pages/PolitPage/PolitPage"
 import HelperPage from "../pages/HelperPage/HelperPage"
+import EditProduct from "../pages/EditProduct/EditProduct"
 
 type Props = {}
 
@@ -51,6 +52,7 @@ export default function AppRouter({}: Props) {
         <>
           <Route path="/trader" element={<TraderCab/>}/>
           <Route path="/createProduct" element={<CreateProduct/>}/>
+          <Route path="/editProduct/:product_id" element={<EditProduct/>}/>
         </>
       )
     }

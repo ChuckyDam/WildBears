@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps';
 import "./Address.scss"
 import context from "../../contexts/ContextsMoney";
@@ -6,8 +6,6 @@ import context from "../../contexts/ContextsMoney";
 type Props = {}
 
 export default function Address({}: Props) {
-
-  const fun = ()=>{console.log(1)};
 
   const obj = useContext<any>(context);
   const [setAddress] = [obj.setAddress];

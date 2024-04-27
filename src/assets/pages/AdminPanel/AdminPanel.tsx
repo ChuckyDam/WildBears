@@ -18,11 +18,15 @@ interface User {
   username: string
 }
 
+async function toggleTrader(user_id: number){
+  let token = Cookie.getCookie("token");
+  if(!token) {window.location.href = "/"; return;}
+  return await Queries.formSet("http://mycoursework/toggletrader", {"user_id": user_id}, token)
+}
+
 export default function AdminPanel({}: Props) {
 
   const [users, setUsers] = useState<Array<User>>([]);
-
-  
 
   useEffect(()=>{
     let token = Cookie.getCookie("token");
@@ -38,7 +42,7 @@ export default function AdminPanel({}: Props) {
       <div className="container">
         <div className="AdminPanel__users">
           {
-            users.map((user)=>{
+            users.map((user, id)=>{
 
               let roleButton = 
               <div className="btns">
@@ -49,20 +53,38 @@ export default function AdminPanel({}: Props) {
                 {
                   user.isTrader?
                   <button className="AdminPanel__ban" onClick={()=>{
-                    console.log(user.user_id)
+                    toggleTrader(user.user_id)
+                    .then(()=>{
+                      let newUser = [...users];
+                      newUser[id].isTrader = false;
+                      setUsers(newUser);
+                    })
                   }}>Удалить продавца</button>
                   :<button className="AdminPanel__setTrader" onClick={()=>{
-                    console.log(user.user_id)
+                    toggleTrader(user.user_id)
+                    .then(()=>{
+                      let newUser = [...users];
+                      newUser[id].isTrader = true;
+                      setUsers(newUser);
+                    })
                   }}>Установить продавца</button>
                 }
                 {
                   user.isAdmin? ""
                   :user.isBanned?
-                  <button className="AdminPanel__ban" onClick={()=>{
+                  <button className="AdminPanel__setTrader" onClick={()=>{
                     console.log(user.user_id)
+                    let newUser = [...users];
+                    newUser[id].isBanned = false;
+                    console.log(newUser)
+                    setUsers(newUser);
                   }}>Разблокировать</button>
                   :<button className="AdminPanel__ban" onClick={()=>{
                     console.log(user.user_id)
+                    let newUser = [...users];
+                    newUser[id].isBanned = true;
+                    console.log(newUser)
+                    setUsers(newUser);
                   }}>Заблокировать</button>
                 }
 

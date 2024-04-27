@@ -4,7 +4,7 @@ import AppRouter from './assets/components/AppRouter'
 import Footer from './assets/components/Footer/Footer'
 import ModalSideBar from './assets/components/ModalSideBar/ModalSideBar'
 import Navbar from './assets/components/Navbar/Navbar'
-import { BrowserRouter, useNavigate } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import Cookie from './assets/js/Cookie';
 import Alert from './assets/components/Alert/Alert'
 

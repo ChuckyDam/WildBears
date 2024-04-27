@@ -61,8 +61,7 @@ export default function TraderCab({}: Props) {
                         let prds = [...products].filter((obj)=>obj.product_id != el.product_id);
                         setProducts(prds);
                       })
-                      .catch((err)=>{
-                        console.log(err);
+                      .catch(()=>{
                         setError({
                           "status": true,
                           "textError": "Товар в заказе",
@@ -73,7 +72,7 @@ export default function TraderCab({}: Props) {
 
                     }}>Del</div>
                     <div className="TraderCab__btnEdit TraderCab__btn" onClick={()=>{
-                      
+                      nav("/editProduct/"+el.product_id);
                     }}>Edit</div>
                   </div>
                   <p>{el.name_product}</p>
